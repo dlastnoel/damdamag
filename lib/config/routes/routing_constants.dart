@@ -1,0 +1,8 @@
+const String HomeScreenRoute = '/';
+const String PreferencesScreenRoute = '/preferences';
+const String WeatherForecastScreenRoute = '/weather_forecast';
+const String CovidCasesScreenRoute = '/covid_cases';
+const String ServicesFormScreenRoute = '/services_form';
+const String InputCodeScreenRoute = '/input_code';
+const String OutputCodeScreenRoute = '/output_code';
+const String RequestStatusScreenRoute = '/request_status';

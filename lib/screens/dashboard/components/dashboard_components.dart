@@ -37,60 +37,65 @@ Widget titleTile(BuildContext context, String title, Color color) {
   );
 }
 
-Widget subtitleTitle(BuildContext context, String title) {
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-    color: Colors.teal[900],
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(fontSize: 15),
+Widget covidTitle() {
+  return Row(
+    children: [
+      Text(
+        'COVID 19 UPDATES',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
         ),
-      ],
-    ),
-  );
-}
-
-Widget transparentCovidTile(String title, String data, IconData icon) {
-  return Card(
-    margin: EdgeInsets.all(5),
-    elevation: 0,
-    color: Colors.teal[900],
-    child: Padding(
-      padding: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Text(title),
-          Icon(
-            icon,
-            color: Colors.white,
-          ),
-          Text(data),
-        ],
       ),
-    ),
+    ],
   );
 }
 
-Widget covidTile(String title, String data, IconData icon, Color color) {
-  return Card(
-    elevation: 3,
-    margin: EdgeInsets.all(5),
-    color: color,
-    child: Padding(
-      padding: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Text(title),
-          Icon(
-            icon,
-            color: Colors.white,
+Widget subtitleTitle(String text) {
+  return Row(
+    children: [
+      Text(
+        text,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
+      ),
+    ],
+  );
+}
+
+Widget covidTile(Color color, String imageUrl, String count, String category) {
+  return Expanded(
+    child: Container(
+      height: 70,
+      child: Card(
+        elevation: 2,
+        color: color,
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(imageUrl),
+              alignment: AlignmentDirectional.bottomCenter,
+            ),
           ),
-          Text(data),
-        ],
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  count,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  category,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     ),
   );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../config/routes/routing_constants.dart';
+
 class OutputCodeScreen extends StatelessWidget {
   final String code;
 
@@ -63,12 +65,13 @@ class OutputCodeScreen extends StatelessWidget {
                   height: 15,
                 ),
                 ElevatedButton(
-                  onPressed: () => print('Hello World'),
+                  onPressed: () =>
+                      Navigator.popAndPushNamed(context, HomeScreenRoute),
                   style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.all(15),
                       primary: Theme.of(context).accentColor,
                       elevation: 5),
-                  child: Text('Check Request'),
+                  child: Text('Back to Home'),
                 )
               ],
             ),

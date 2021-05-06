@@ -70,9 +70,14 @@ flutter:
     - assets/images/cloudy.png
     - assets/images/rain.png
     - assets/images/storm.png
+    - assets/images/covid.png
     - assets/images/blank_weather.png
     - assets/images/pending.png
     - assets/images/ready.png
+    - assets/images/virus.png
+    - assets/images/active.png
+    - assets/images/recovered.png
+    - assets/images/deaths.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

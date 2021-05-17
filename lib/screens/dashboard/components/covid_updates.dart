@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'dart:convert';
 
 import '../../../models/covid_cases.dart';
@@ -17,6 +18,8 @@ class CovidUpdates extends StatefulWidget {
 class _CovidUpdatesState extends State<CovidUpdates> {
   List<CovidCases> caseOne = [];
   List<CovidCases> caseTwo = [];
+
+  final formatter = NumberFormat('###,###,###,000');
 
   Future getCovidCases(index) async {
     http.Response response;
@@ -46,7 +49,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
           case 1:
             _color = Colors.orange[400];
             _imageUrl = 'assets/images/virus.png';
-            _count = results['data']['confirmed'].toString();
+            _count = formatter.format(results['data']['confirmed']);
             _category = 'Confirmed Cases';
             caseOne.add(new CovidCases(
                 color: _color,
@@ -55,9 +58,9 @@ class _CovidUpdatesState extends State<CovidUpdates> {
                 category: _category));
             break;
           case 2:
-            _color = Colors.redAccent;
+            _color = Colors.blueGrey;
             _imageUrl = 'assets/images/active.png';
-            _count = results['data']['active'].toString();
+            _count = formatter.format(results['data']['active']);
             _category = 'Active Cases';
             caseOne.add(new CovidCases(
                 color: _color,
@@ -67,7 +70,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
             break;
           case 3:
             _color = Colors.indigo[400];
-            _count = results['data']['recovered'].toString();
+            _count = formatter.format(results['data']['recovered']);
             _imageUrl = 'assets/images/recovered.png';
             _category = 'Recovered';
             caseTwo.add(new CovidCases(
@@ -78,7 +81,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
             break;
           case 4:
             _color = Colors.grey[700];
-            _count = results['data']['deaths'].toString();
+            _count = formatter.format(results['data']['deaths']);
             _imageUrl = 'assets/images/deaths.png';
             _category = 'Deaths';
             caseTwo.add(new CovidCases(

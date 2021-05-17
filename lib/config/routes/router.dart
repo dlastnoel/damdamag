@@ -1,3 +1,4 @@
+import 'package:damdamag/screens/contact_details/contact_details_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'routing_constants.dart';
@@ -10,6 +11,7 @@ import '../../screens/services_form/services_form_screen.dart';
 import '../../screens/input_code/input_code_screen.dart';
 import '../../screens/output_code/output_code_screen.dart';
 import '../../screens/request_status/request_status_screen.dart';
+import '../../screens/contact_details/contact_details_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -41,6 +43,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case RequestStatusScreenRoute:
       return MaterialPageRoute(builder: (context) => RequestStatusScreen());
+    case ContactDetailsScreenRoute:
+      final ContactDetailsScreen contactDetailsArgs = settings.arguments;
+      return MaterialPageRoute(
+          builder: (context) =>
+              ContactDetailsScreen(id: contactDetailsArgs.id));
     default:
       return MaterialPageRoute(builder: (context) => TabScreen());
   }

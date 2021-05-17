@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 
 Widget weatherTile(String title, IconData icon) {
-  return Card(
-    elevation: 3,
-    margin: EdgeInsets.all(5),
-    color: Colors.red[300],
-    child: Padding(
-      padding: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Icon(
-            icon,
-            color: Colors.white,
-          ),
-          Text(title),
-        ],
+  return Expanded(
+    child: Card(
+      elevation: 3,
+      margin: EdgeInsets.all(5),
+      color: Colors.red[300],
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              color: Colors.white,
+            ),
+            Text(title),
+          ],
+        ),
       ),
     ),
   );

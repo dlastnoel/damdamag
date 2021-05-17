@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../config/routes/routing_constants.dart';
 
 class RequestStatusScreen extends StatelessWidget {
   @override
@@ -40,12 +41,13 @@ class RequestStatusScreen extends StatelessWidget {
                   height: 15,
                 ),
                 ElevatedButton(
-                  onPressed: () => print('Hello World'),
+                  onPressed: () =>
+                      Navigator.popAndPushNamed(context, HomeScreenRoute),
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.all(15),
                     primary: Theme.of(context).accentColor,
                   ),
-                  child: Text('Check Request'),
+                  child: Text('Back to Home'),
                 )
               ],
             ),

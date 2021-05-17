@@ -12,7 +12,7 @@ ThemeData light = ThemeData(
   appBarTheme: AppBarTheme(
     textTheme: ThemeData.light().textTheme.copyWith(
           headline6: TextStyle(
-            fontFamily: 'RobotoSlab',
+            fontFamily: 'SanFrancisco',
             fontSize: 20,
             fontWeight: FontWeight.w700,
           ),
@@ -33,7 +33,7 @@ ThemeData dark = ThemeData(
   appBarTheme: AppBarTheme(
     textTheme: ThemeData.light().textTheme.copyWith(
           headline6: TextStyle(
-            fontFamily: 'RobotoSlab',
+            fontFamily: 'SanFrancisco',
             fontSize: 20,
             fontWeight: FontWeight.w700,
           ),

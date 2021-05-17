@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
             title: 'Damdamg',
             theme: notifier.darkTheme ? dark : light,
             onGenerateRoute: router.generateRoute,
+            debugShowCheckedModeBanner: false,
             initialRoute: HomeScreenRoute,
           );
         },

@@ -6,3 +6,4 @@ const String ServicesFormScreenRoute = '/services_form';
 const String InputCodeScreenRoute = '/input_code';
 const String OutputCodeScreenRoute = '/output_code';
 const String RequestStatusScreenRoute = '/request_status';
+const String ContactDetailsScreenRoute = '/contact-details';

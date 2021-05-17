@@ -27,7 +27,13 @@ class PreferencesScreen extends StatelessWidget {
                 Card(
                   child: ListTile(
                     title: Text(
-                        "Damdamag Mobile App v1.0\n\nBarangay Management and Information System\n\nDeveloped by Noel Xavier M. Ulpindo (May 2021)"),
+                        '"Damdamag", an Iloko term which pertains to news and information'),
+                  ),
+                ),
+                Card(
+                  child: ListTile(
+                    title: Text(
+                        "Damdamag Mobile App v1.0\n\nBarangay Management and Information System\n\nNoel Xavier M. Ulpindo\nMay 2021"),
                   ),
                 ),
               ]),

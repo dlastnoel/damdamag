@@ -32,6 +32,7 @@ dependencies:
   shared_preferences: ^2.0.5
   http: ^0.13.2
   intl: ^0.17.0
+  dio: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +79,20 @@ flutter:
     - assets/images/active.png
     - assets/images/recovered.png
     - assets/images/deaths.png
+    - assets/images/investigation.png
+    - assets/images/monitoring.png
+    - assets/images/announcement.png
+    - assets/images/support.png
+    - assets/images/lostandfound.png
+    - assets/images/meeting.png
+    - assets/images/event.png
+    - assets/images/captain.png
+    - assets/images/kagawad.png
+    - assets/images/tanod.png
+    - assets/images/secretary.png
+    - assets/images/sk.png
+    - assets/images/rosario_light.png
+    - assets/images/rosario_dark.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -91,14 +106,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: RobotoSlab
-      fonts:
-        - asset: assets/fonts/RobotoSlab-Light.ttf
-        - asset: assets/fonts/RobotoSlab-Regular.ttf
-        - asset: assets/fonts/RobotoSlab-Medium.ttf
-        - asset: assets/fonts/RobotoSlab-Bold.ttf
-          weight: 700
-
     - family: SanFrancisco
       fonts:
         - asset: assets/fonts/SanFrancisco-Light.otf

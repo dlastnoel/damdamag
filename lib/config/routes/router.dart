@@ -42,7 +42,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         ),
       );
     case RequestStatusScreenRoute:
-      return MaterialPageRoute(builder: (context) => RequestStatusScreen());
+      final RequestStatusScreen requestStatusArgs = settings.arguments;
+      return MaterialPageRoute(
+          builder: (context) => RequestStatusScreen(
+                code: requestStatusArgs.code,
+              ));
     case ContactDetailsScreenRoute:
       final ContactDetailsScreen contactDetailsArgs = settings.arguments;
       return MaterialPageRoute(

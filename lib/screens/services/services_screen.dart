@@ -34,7 +34,7 @@ class ServicesScreen extends StatelessWidget {
           height: 20,
         ),
         Container(
-          width: 300,
+          margin: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
               servicesTile(

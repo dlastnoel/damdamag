@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'dart:convert';
+import 'package:delayed_display/delayed_display.dart';
 
 import '../../../models/covid_cases.dart';
 
@@ -16,8 +17,9 @@ class CovidUpdates extends StatefulWidget {
 }
 
 class _CovidUpdatesState extends State<CovidUpdates> {
-  List<CovidCases> caseOne = [];
-  List<CovidCases> caseTwo = [];
+  List<CovidCases> _caseOne = [];
+  List<CovidCases> _caseTwo = [];
+  bool _isLoading = false;
 
   final formatter = NumberFormat('###,###,###,000');
 
@@ -36,10 +38,12 @@ class _CovidUpdatesState extends State<CovidUpdates> {
         break;
     }
 
+    if (response.statusCode == 200) {}
+
     var results = jsonDecode(response.body);
     setState(() {
-      caseOne.clear();
-      caseTwo.clear();
+      _caseOne.clear();
+      _caseTwo.clear();
       for (int i = 1; i <= 4; i++) {
         Color _color;
         String _count;
@@ -51,7 +55,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
             _imageUrl = 'assets/images/virus.png';
             _count = formatter.format(results['data']['confirmed']);
             _category = 'Confirmed Cases';
-            caseOne.add(new CovidCases(
+            _caseOne.add(new CovidCases(
                 color: _color,
                 imageUrl: _imageUrl,
                 count: _count,
@@ -62,7 +66,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
             _imageUrl = 'assets/images/active.png';
             _count = formatter.format(results['data']['active']);
             _category = 'Active Cases';
-            caseOne.add(new CovidCases(
+            _caseOne.add(new CovidCases(
                 color: _color,
                 imageUrl: _imageUrl,
                 count: _count,
@@ -73,7 +77,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
             _count = formatter.format(results['data']['recovered']);
             _imageUrl = 'assets/images/recovered.png';
             _category = 'Recovered';
-            caseTwo.add(new CovidCases(
+            _caseTwo.add(new CovidCases(
                 color: _color,
                 imageUrl: _imageUrl,
                 count: _count,
@@ -84,7 +88,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
             _count = formatter.format(results['data']['deaths']);
             _imageUrl = 'assets/images/deaths.png';
             _category = 'Deaths';
-            caseTwo.add(new CovidCases(
+            _caseTwo.add(new CovidCases(
                 color: _color,
                 imageUrl: _imageUrl,
                 count: _count,
@@ -92,6 +96,7 @@ class _CovidUpdatesState extends State<CovidUpdates> {
             break;
         }
       }
+      _isLoading = true;
     });
   }
 
@@ -103,25 +108,45 @@ class _CovidUpdatesState extends State<CovidUpdates> {
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget loadData() {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: caseOne
+          children: _caseOne
               .map((caseData) => covidTile(caseData.color, caseData.imageUrl,
                   caseData.count, caseData.category))
               .toList(),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: caseTwo
+          children: _caseTwo
               .map((caseData) => covidTile(caseData.color, caseData.imageUrl,
                   caseData.count, caseData.category))
               .toList(),
         ),
       ],
     );
+  }
+
+  Widget loadBlank() {
+    return DelayedDisplay(
+      delay: Duration(seconds: 3),
+      fadingDuration: Duration(milliseconds: 2),
+      child: Center(
+        child: Text(
+          'No internet connection',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 23,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _isLoading ? loadData() : loadBlank();
   }
 }

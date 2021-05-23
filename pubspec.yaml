@@ -32,19 +32,28 @@ dependencies:
   shared_preferences: ^2.0.5
   http: ^0.13.2
   intl: ^0.17.0
-  dio: ^4.0.0
+  datetime_picker_formfield: ^2.0.0
+  connectivity: ^3.0.3
+  delayed_display: ^2.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   
   flutter_native_splash: ^1.1.8+4
+  flutter_launcher_icons: ^0.9.0
 
 flutter_native_splash:
   color: "#30B5A9"
   image: assets/images/logo_500.png
   android: true
   ios: true
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo_launcher.png"
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -93,6 +102,9 @@ flutter:
     - assets/images/sk.png
     - assets/images/rosario_light.png
     - assets/images/rosario_dark.png
+    - assets/images/error.png
+    - assets/images/playstore.png
+    - assets/images/logo_launcher.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

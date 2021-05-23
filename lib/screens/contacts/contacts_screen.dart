@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:damdamag/screens/contact_details/contact_details_screen.dart';
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -11,8 +12,8 @@ class ContactsScreen extends StatefulWidget {
 }
 
 class _ContactsScreenState extends State<ContactsScreen> {
-  List officials = [];
-  bool isLoading = false;
+  List _officials = [];
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -21,22 +22,18 @@ class _ContactsScreenState extends State<ContactsScreen> {
   }
 
   fetchOfficials() async {
-    setState(() {
-      isLoading = true;
-    });
     var response =
         await http.get(Uri.parse('http://192.168.1.80:8000/api/officials/'));
 
-    if (response.statusCode == 200) {
-      var results = json.decode(response.body);
-      setState(() {
-        officials = results;
-        isLoading = false;
-      });
-    } else {
-      officials = [];
-      isLoading = false;
-    }
+    setState(() {
+      if (response.statusCode == 200) {
+        var results = json.decode(response.body);
+        setState(() {
+          _officials = results;
+          _isLoading = true;
+        });
+      }
+    });
   }
 
   Widget officialsTile(official) {
@@ -86,16 +83,36 @@ class _ContactsScreenState extends State<ContactsScreen> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget loadData() {
     return Container(
       height: double.infinity,
       width: double.infinity,
       child: ListView.builder(
-          itemCount: officials.length,
+          itemCount: _officials.length,
           itemBuilder: (context, index) {
-            return officialsTile(officials[index]);
+            return officialsTile(_officials[index]);
           }),
     );
+  }
+
+  Widget loadBlank() {
+    return DelayedDisplay(
+      delay: Duration(seconds: 3),
+      fadingDuration: Duration(milliseconds: 2),
+      child: Center(
+        child: Text(
+          'No internet connection',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 23,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _isLoading ? loadData() : loadBlank();
   }
 }

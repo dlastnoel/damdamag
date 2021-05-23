@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:delayed_display/delayed_display.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -10,8 +11,8 @@ class NewsfeedScreen extends StatefulWidget {
 }
 
 class _NewsfeedScreenState extends State<NewsfeedScreen> {
-  List newsfeeds = [];
-  bool isLoading = false;
+  List _newsfeeds = [];
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -20,22 +21,19 @@ class _NewsfeedScreenState extends State<NewsfeedScreen> {
   }
 
   fetchPosts() async {
-    setState(() {
-      isLoading = true;
-    });
     var response =
         await http.get(Uri.parse('http://192.168.1.80:8000/api/posts/all'));
 
-    if (response.statusCode == 200) {
-      var results = json.decode(response.body);
-      setState(() {
-        newsfeeds = results;
-        isLoading = false;
-      });
-    } else {
-      newsfeeds = [];
-      isLoading = false;
-    }
+    setState(() {
+      if (response.statusCode == 200) {
+        var results = json.decode(response.body);
+        _newsfeeds = results;
+        _isLoading = true;
+      } else {
+        _newsfeeds = [];
+        _isLoading = false;
+      }
+    });
   }
 
   Widget posts(post) {
@@ -68,16 +66,36 @@ class _NewsfeedScreenState extends State<NewsfeedScreen> {
     return newsfeedCard(_color, _imageUrl, _hashtag, _author, _content);
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget loadData() {
     return Container(
       height: double.infinity,
       width: double.infinity,
       child: ListView.builder(
-          itemCount: newsfeeds.length,
+          itemCount: _newsfeeds.length,
           itemBuilder: (context, index) {
-            return posts(newsfeeds[index]);
+            return posts(_newsfeeds[index]);
           }),
     );
+  }
+
+  Widget loadBlank() {
+    return DelayedDisplay(
+      delay: Duration(seconds: 3),
+      fadingDuration: Duration(milliseconds: 2),
+      child: Center(
+        child: Text(
+          'No internet connection',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 23,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _isLoading ? loadData() : loadBlank();
   }
 }

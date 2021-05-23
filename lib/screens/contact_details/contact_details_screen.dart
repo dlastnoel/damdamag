@@ -21,7 +21,7 @@ class _ContactDetailsScreenState extends State<ContactDetailsScreen> {
   String _email = '';
   String _official = '';
 
-  bool isLoading = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _ContactDetailsScreenState extends State<ContactDetailsScreen> {
 
   Future fetchOfficial() async {
     setState(() {
-      isLoading = true;
+      _isLoading = true;
     });
     String url =
         'http://192.168.1.80:8000/api/officials/' + widget.id.toString() + '/';
@@ -72,11 +72,59 @@ class _ContactDetailsScreenState extends State<ContactDetailsScreen> {
         _email = results['email'];
         _official =
             _position + ' ' + _firstname + _middlename + ' ' + _lastname;
-        isLoading = false;
       });
-    } else {
-      isLoading = false;
     }
+  }
+
+  Widget loadData() {
+    return Expanded(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              color: Colors.teal,
+              child: Center(
+                child: Text(
+                  _official,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              tileColor: Colors.teal,
+              leading: Text('Address: '),
+              title: Text(_address),
+            ),
+            ListTile(
+              tileColor: Colors.teal,
+              leading: Text('Contact: '),
+              title: Text(_contact),
+            ),
+            ListTile(
+              tileColor: Colors.teal,
+              leading: Text('Email: '),
+              title: Text(_email),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget loadBlank() {
+    return Center(
+      child: Text(
+        'No internet connection',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 23,
+        ),
+      ),
+    );
   }
 
   @override
@@ -105,9 +153,10 @@ class _ContactDetailsScreenState extends State<ContactDetailsScreen> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
           Container(
+            color: Colors.teal,
             child: Center(
               child: Image(
                 image: AssetImage(_imageUrl),
@@ -115,42 +164,7 @@ class _ContactDetailsScreenState extends State<ContactDetailsScreen> {
               ),
             ),
           ),
-          Expanded(
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text(
-                      _official,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  ListTile(
-                    tileColor: Colors.teal,
-                    leading: Text('Address: '),
-                    title: Text(_address),
-                  ),
-                  ListTile(
-                    tileColor: Colors.teal,
-                    leading: Text('Contact: '),
-                    title: Text(_contact),
-                  ),
-                  ListTile(
-                    tileColor: Colors.teal,
-                    leading: Text('Email: '),
-                    title: Text(_email),
-                  ),
-                ],
-              ),
-            ),
-          )
+          _isLoading ? loadData() : loadBlank(),
         ],
       ),
     );

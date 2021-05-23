@@ -20,7 +20,9 @@ class OutputCodeScreen extends StatelessWidget {
           color: Theme.of(context).primaryColor,
           child: Container(
             padding: const EdgeInsets.all(30),
-            height: 300,
+            constraints: BoxConstraints(
+              maxHeight: 500,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,6 +36,8 @@ class OutputCodeScreen extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
+                Text(
+                    'Requst successfully created. Kindly wait for your request to be completed. For now, please refer to the code given below. Use it to check the status of your request. Thank you!'),
                 InkWell(
                   onTap: () {
                     Clipboard.setData(new ClipboardData(text: code));
